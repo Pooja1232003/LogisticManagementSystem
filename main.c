@@ -8,10 +8,15 @@
 #define FUEL_PRICE 310.0
 
 
+void addCities(int maxCities,char cityNames[][30],int *cityCount );
+
+
 int main()
-{
+{ char cityNames[MAX_CITIES][30];
 
     int choice;
+
+    int cityCount=0;
 
     do {
         printf("\n===== LOGISTICS MANAGEMENT MENU =====\n\n");
@@ -29,13 +34,40 @@ int main()
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
+     switch(choice){
+       case 1:addCities(MAX_CITIES,cityNames,&cityCount);
+           break;
 
 
 
+
+       case 0: printf("Exiting...\n");
+           break;
+        default: printf("Invalid choice! Try again.\n");
+     }
     } while (choice != 0);
 
 
     return 0;
 }
 
+
+  //City Management
+ void addCities(int maxCities,char cityNames[][30],int *cityCount ){
+ int n;
+ printf("How many cities do you want to add? :");
+ scanf("%d",&n);
+
+ if (*cityCount + n > maxCities){
+    printf("Error");
+    return;
+ }
+  for( int i=0 ;i<n ;i++){
+    printf("Enter city name %d: ", *cityCount + 1);
+    scanf("%s", cityNames[*cityCount]);
+    (*cityCount)++;
+  }
+ printf("\n%d cities added.\n",n);
+
+}
 

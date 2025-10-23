@@ -9,6 +9,7 @@
 
 
 void addCities(int maxCities,char cityNames[][30],int *cityCount );
+void listCities(char cityNames[][30],int cityCount);
 
 
 int main()
@@ -37,8 +38,8 @@ int main()
      switch(choice){
        case 1:addCities(MAX_CITIES,cityNames,&cityCount);
            break;
-
-
+       case 2:listCities(cityNames,cityCount);
+           break;
 
 
        case 0: printf("Exiting...\n");
@@ -71,3 +72,14 @@ int main()
 
 }
 
+
+ void listCities(char cityNames[][30],int cityCount){
+ if(cityCount == 0){
+    printf("No cities available.\n");
+    return;
+ }
+ printf("\nList Of Cities:\n");
+ for(int i=0 ; i < cityCount ;i++){
+    printf("%d.%s\n",i+1,cityNames[i]);
+  }
+}

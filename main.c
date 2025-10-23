@@ -11,7 +11,7 @@
 void addCities(int maxCities,char cityNames[][30],int *cityCount );
 void listCities(char cityNames[][30],int cityCount);
 void renameCity(char cityNames[][30],int cityCount);
-
+void removeCity(char cityNames[][30],int *cityCount);
 
 int main()
 { char cityNames[MAX_CITIES][30];
@@ -43,7 +43,8 @@ int main()
            break;
        case 3:renameCity(cityNames,cityCount);
            break;
-
+       case 4:removeCity(cityNames,&cityCount);
+           break;
 
        case 0: printf("Exiting...\n");
            break;
@@ -107,3 +108,28 @@ int main()
   printf("City renamed.\n");
 
  }
+
+
+ void removeCity(char cityNames[][30],int *cityCount){
+   if( *cityCount == 0){
+    printf("No cities to remove.\n");
+    return;
+   }
+
+   int index;
+   printf("Enter city number to remove :");
+   scanf("%d",&index);
+
+   if(index < 1 || index >*cityCount){
+    printf("Invalid city number.\n");
+    return;
+   }
+   for(int i = index - 1; i < *cityCount - 1; i++){
+    for(int j=0; j<30; j++){
+   cityNames[i][j] = cityNames[i + 1][j];
+    }
+   }
+   (*cityCount)--;
+   printf("City removed.\n");
+ }
+

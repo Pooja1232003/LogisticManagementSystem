@@ -16,9 +16,14 @@ void removeCity(char cityNames[][30],int *cityCount);
 void inputDistance(int distance[][MAX_CITIES],int cityCount,char cityNames[][30]);
 void displayDistanceTable(int distance[][MAX_CITIES],int cityCount,char cityNames[][30]);
 void displayVehicles(char vehicleNames[][20],int capacities[],float rates[],float speeds[],float efficiencies[],int vehicleCount);
+void handleDelivery(int distance[][MAX_CITIES], char cityNames[][30], int cityCount,char vehicleNames[][20], int capacities[], float rates[],float speeds[],
+                     float efficiencies[], int vehicleCount, int deliverySource[], int deliveryDestination[], int deliveryVehicle[],
+                    float deliveryFinalCharge[], int *deliveryCount);
 
-int main()
-{ char cityNames[MAX_CITIES][30];
+
+int main(){
+
+ char cityNames[MAX_CITIES][30];
   int distance[MAX_CITIES][MAX_CITIES]={0};
 
   char vehicleNames[MAX_VEHICLES][20]={"Van","Truck","Lorry"};
@@ -34,7 +39,7 @@ int main()
 
     int choice;
 
-    int cityCount=0;
+    int cityCount=0,deliveryCount=0;
 
     do {
         printf("\n===== LOGISTICS MANAGEMENT MENU =====\n\n");
@@ -66,6 +71,10 @@ int main()
        case 6:displayDistanceTable(distance,cityCount,cityNames);
           break;
        case 7:displayVehicles(vehicleNames,capacities,rates,speeds,efficiencies,MAX_VEHICLES);
+         break;
+        case 8:handleDelivery(distance, cityNames, cityCount,
+                               vehicleNames, capacities, rates, speeds, efficiencies, MAX_VEHICLES,
+                               deliverySource, deliveryDestination, deliveryVehicle, deliveryFinalCharge, &deliveryCount);
          break;
 
        case 0: printf("Exiting...\n");
@@ -209,3 +218,48 @@ int main()
     printf("%d\t  %s\t\t  %d\t\t  %.2f\t\t  %.2f\t\t  %.2f\n",i+1, vehicleNames[i], capacities[i], rates[i], speeds[i], efficiencies[i]);
    }
 }
+
+
+
+ void handleDelivery(int distance[][MAX_CITIES], char cityNames[][30], int cityCount,char vehicleNames[][20], int capacities[], float rates[],float speeds[],
+                     float efficiencies[], int vehicleCount, int deliverySource[], int deliveryDestination[], int deliveryVehicle[],
+                    float deliveryFinalCharge[], int *deliveryCount){
+
+  int source,destination,vehicleIndex;
+  float weight;
+    if(cityCount < 2){
+        printf("Add at least 2 cities and distance first\n");
+        return;
+    }
+
+
+    listCities(cityNames,cityCount);
+
+    printf("\n\nEnter source city number:");
+    scanf("%d", &source);
+    printf("Enter destination city number:");
+    scanf("%d", &destination);
+
+    if (source <1 || source > cityCount || destination < 1 || destination > cityCount || source == destination){
+        printf("Invalid source or destination.\n");
+        return;
+    }
+
+    printf("Enter weight (kg): ");
+    scanf("%f", &weight);
+
+
+    displayVehicles(vehicleNames,capacities,rates,speeds,efficiencies,MAX_VEHICLES);
+    printf("\n\nSelect vehicle type (1-3): ");
+    scanf("%d", &vehicleIndex);
+    vehicleIndex -= 1;
+
+    if(weight > capacities[vehicleIndex]){
+        printf("weight exceeds vehicle capacity.\n");
+        return;
+    }
+
+
+
+
+                    }

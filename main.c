@@ -20,6 +20,12 @@ int main()
 { char cityNames[MAX_CITIES][30];
   int distance[MAX_CITIES][MAX_CITIES]={0};
 
+  char vehicleNames[MAX_VEHICLES][20]={"Van","Truck","Lorry"};
+  int capacities[MAX_VEHICLES]={1000,5000,10000};
+  float rates[MAX_VEHICLES]={30.0,40.0,80.0};
+  float speeds[MAX_VEHICLES]={60.0,50.0,45.0};
+  float efficiencies[MAX_VEHICLES]={12.0,6.0,4.0};
+
     int choice;
 
     int cityCount=0;

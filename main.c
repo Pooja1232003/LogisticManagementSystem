@@ -259,7 +259,47 @@ int main(){
         return;
     }
 
+    int dist = findShortestPath(source - 1, destination - 1, cityCount, distance, cityNames);
+    printf("\nMinimum Distance Found: %d km\n", dist);
 
+    if (dist <= 0 || dist >= 1e9) {
+       printf("Invalid or missing distance data.\n");
+       return;
+    }
+
+       float deliveryCost = dist * rates[vehicleIndex] * (1 + (weight / 10000.0));
+       float time = dist / speeds[vehicleIndex];
+       float fuelUsed = dist / efficiencies[vehicleIndex];
+       float fuelCost = fuelUsed * FUEL_PRICE;
+       float totalCost = deliveryCost + fuelCost;
+       float profit =  totalCost * 0.25;
+       float finalCharge = totalCost + profit;
+
+
+    printf("\n---------------------------------\n");
+    printf("----[ DELIVERY COST ESTIMATION ]----");
+
+    printf("From: %s\n", cityNames[source - 1]);
+    printf("To: %s\n",cityNames[destination - 1]);
+    printf("Minimum Distance: %d km\n", dist);
+    printf("Vehicle: %s\n", vehicleNames[vehicleIndex]);
+    printf("Weight:%.2f kg\n",weight);
+    printf("---------------------------------\n");
+    printf("Delivery Cost: LKR %.2f\n", deliveryCost);
+    printf("Fuel Used: %.2f L\n", fuelUsed);
+    printf("Fuel Cost:%.2f LKR \n", fuelCost);
+    printf("Total Operational Cost:%.2f LKR \n", totalCost);
+    printf("Profit (25%%):%.2f LKR \n", profit);
+    printf("Final Charge to Customer:%.2f LKR \n", finalCharge);
+    printf("Estimated Time: %.2f hours\n", time);
+    printf("---------------------------------");
+
+
+    deliverySource[*deliveryCount] = source - 1;
+    deliveryDestination[*deliveryCount] = destination - 1;
+    deliveryVehicle[*deliveryCount] = vehicleIndex;
+    deliveryFinalCharge[*deliveryCount] = finalCharge;
+    (*deliveryCount)++;
 
 }
 

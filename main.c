@@ -15,6 +15,7 @@ void removeCity(char cityNames[][30],int *cityCount);
 
 void inputDistance(int distance[][MAX_CITIES],int cityCount,char cityNames[][30]);
 void displayDistanceTable(int distance[][MAX_CITIES],int cityCount,char cityNames[][30]);
+void displayVehicles(char vehicleNames[][20],int capacities[],float rates[],float speeds[],float efficiencies[],int vehicleCount);
 
 int main()
 { char cityNames[MAX_CITIES][30];
@@ -59,6 +60,8 @@ int main()
            break;
        case 6:displayDistanceTable(distance,cityCount,cityNames);
           break;
+       case 7:displayVehicles(vehicleNames,capacities,rates,speeds,efficiencies,MAX_VEHICLES);
+         break;
 
        case 0: printf("Exiting...\n");
            break;
@@ -189,4 +192,15 @@ int main()
         }
         printf("\n");
     }
+}
+
+
+ void displayVehicles(char vehicleNames[][20],int capacities[],float rates[],float speeds[],float efficiencies[],int vehicleCount){
+
+   printf("\n====VEHICLE INFORMATION====\n");
+   printf("%s\t  %s\t\t  %s\t  %s\t  %s\t\t  %s\n", "ID", "Type", "Cap(kg)", "Rate/km", "Speed", "Eff(km/1)");
+   printf("----------------------------------------------------------------------------\n");
+   for(int i = 0; i < vehicleCount; i++){
+    printf("%d\t  %s\t\t  %d\t\t  %.2f\t\t  %.2f\t\t  %.2f\n",i+1, vehicleNames[i], capacities[i], rates[i], speeds[i], efficiencies[i]);
+   }
 }

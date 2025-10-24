@@ -19,7 +19,7 @@ void displayVehicles(char vehicleNames[][20],int capacities[],float rates[],floa
 void handleDelivery(int distance[][MAX_CITIES], char cityNames[][30], int cityCount,char vehicleNames[][20], int capacities[], float rates[],float speeds[],
                      float efficiencies[], int vehicleCount, int deliverySource[], int deliveryDestination[], int deliveryVehicle[],
                     float deliveryFinalCharge[], int *deliveryCount);
-
+float findShortestPath(int source, int dest, int n, int roads[MAX_CITIES][MAX_CITIES],char cityNames[][30]);
 
 int main(){
 
@@ -261,5 +261,66 @@ int main(){
 
 
 
+}
 
-                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+ float findShortestPath(int source, int dest, int n, int roads[MAX_CITIES][MAX_CITIES],char cityNames[][30]){
+  int dist[MAX_CITIES];
+  int visited[MAX_CITIES] = {0};
+  int prev[MAX_CITIES];
+
+  for(int i = 0; i < n; i++){
+    dist[i]= 1e9;
+    prev[i]= -1;
+  }
+  dist[source] = 0;
+
+  for( int count = 0; count < n-1; count++){
+    int u = -1;
+    int minDist = 1e9;
+
+
+  for ( int i = 0; i < n; i++)
+    if (!visited[i] && dist[i] < minDist)
+        minDist = dist[i],u = i;
+
+    if (u == -1)
+        break;
+    visited[u]=1;
+
+
+    for (int v = 0; v < n; v++) {
+       if (!visited[v] && roads[u][v] > 0 && dist[u] + roads[u][v] < dist[v]) {
+           dist[v] = dist[u] + roads[u][v];
+           prev[v] = u;
+    }
+  }
+}
+
+  printf("\nShortest path from %s to %s  :", cityNames[source], cityNames[dest]);
+  int path[MAX_CITIES], len = 0, v = dest;
+
+  while (v != -1){
+    path[len++]=v;
+    v = prev[v];
+  }
+
+  for (int i= len -1; i >=0; i--){
+    printf("%s", cityNames[path[i]]);
+    if (i > 0)printf("->");
+  }
+
+  return dist[dest];
+}

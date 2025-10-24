@@ -27,6 +27,11 @@ int main()
   float speeds[MAX_VEHICLES]={60.0,50.0,45.0};
   float efficiencies[MAX_VEHICLES]={12.0,6.0,4.0};
 
+  int deliverySource[MAX_DELIVERIES];
+  int deliveryDestination[MAX_DELIVERIES];
+  int deliveryVehicle[MAX_DELIVERIES];
+  float deliveryFinalCharge[MAX_DELIVERIES];
+
     int choice;
 
     int cityCount=0;

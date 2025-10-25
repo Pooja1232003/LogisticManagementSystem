@@ -398,6 +398,51 @@ int main(){
         printf("No deliveries completed yet.\n");
         return;
     }
-                  }
+    int totalDistance = 0;
+    float totalTime = 0, totalRevenue = 0, totalProfit = 0;
+    int longest = 0, shortest = 1e9;
+    int longSrc = -1, longDest = -1;
+    int shortSrc = -1, shortDest = -1;
+
+    for (int i = 0; i < deliveryCount; i++) {
+        int src = deliverySource[i];
+        int dest = deliveryDestination[i];
+        int vehicle = deliveryVehicle[i];
+        int dist = distance[src][dest];
+        float time = dist / speeds[vehicle];
+        float profit = deliveryFinalCharge[i] * 0.25;
+
+        totalDistance += dist;
+        totalTime += time;
+        totalRevenue += deliveryFinalCharge[i];
+        totalProfit += profit;
+
+        if (dist > longest) {
+            longest = dist;
+            longSrc = src;
+            longDest = dest;
+        }
+
+        if (dist < shortest) {
+            shortest = dist;
+             shortSrc = src;
+            shortDest = dest;
+        }
+    }
+
+     printf("\n========== PERFORMANCE REPORT ==========\n");
+     printf("Total Deliveries Completed : %d\n", deliveryCount);
+     printf("Total Distance Covered     : %d km\n", totalDistance);
+     printf("Average Delivery Time      : %.2f hours\n", totalTime / deliveryCount);
+     printf("Total Revenue              : LKR %.2f\n", totalRevenue);
+     printf("Total Profit               : LKR %.2f\n", totalProfit);
+     printf("Longest Route Completed    : %s - %s (%d km)\n",
+           cityNames[longSrc], cityNames[longDest], longest);
+     printf("Shortest Route Completed   : %s - %s (%d km)\n",
+           cityNames[shortSrc], cityNames[shortDest], shortest);
+     printf("========================================\n");
+
+
+}
 
 

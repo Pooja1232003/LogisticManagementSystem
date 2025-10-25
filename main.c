@@ -20,6 +20,8 @@ void handleDelivery(int distance[][MAX_CITIES], char cityNames[][30], int cityCo
                      float efficiencies[], int vehicleCount, int deliverySource[], int deliveryDestination[], int deliveryVehicle[],
                     float deliveryFinalCharge[], int *deliveryCount);
 float findShortestPath(int source, int dest, int n, int roads[MAX_CITIES][MAX_CITIES],char cityNames[][30]);
+void showDeliveries(int deliverySource[], int deliveryDestination[], int deliveryVehicle[], float deliveryFinalCharge[],int deliveryCount,
+                    char cityNames[][30], char vehicleNames[][20]);
 
 int main(){
 
@@ -69,13 +71,16 @@ int main(){
        case 5:inputDistance(distance,cityCount,cityNames);
            break;
        case 6:displayDistanceTable(distance,cityCount,cityNames);
-          break;
+           break;
        case 7:displayVehicles(vehicleNames,capacities,rates,speeds,efficiencies,MAX_VEHICLES);
-         break;
+          break;
         case 8:handleDelivery(distance, cityNames, cityCount,
                                vehicleNames, capacities, rates, speeds, efficiencies, MAX_VEHICLES,
                                deliverySource, deliveryDestination, deliveryVehicle, deliveryFinalCharge, &deliveryCount);
-         break;
+          break;
+        case 9:showDeliveries(deliverySource, deliveryDestination, deliveryVehicle, deliveryFinalCharge,
+                               deliveryCount, cityNames, vehicleNames);
+          break;
 
        case 0: printf("Exiting...\n");
            break;
@@ -277,7 +282,7 @@ int main(){
 
 
     printf("\n---------------------------------\n");
-    printf("----[ DELIVERY COST ESTIMATION ]----");
+    printf("----[ DELIVERY COST ESTIMATION ]----\n");
 
     printf("From: %s\n", cityNames[source - 1]);
     printf("To: %s\n",cityNames[destination - 1]);
@@ -302,16 +307,6 @@ int main(){
     (*deliveryCount)++;
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -363,4 +358,22 @@ int main(){
   }
 
   return dist[dest];
+}
+
+
+
+ void showDeliveries(int deliverySource[], int deliveryDestination[], int deliveryVehicle[], float deliveryFinalCharge[],
+                    int deliveryCount, char cityNames[][30], char vehicleNames[][20]) {
+
+   if(deliveryCount == 0){
+    printf("No deliveries recorded yet.\n");
+    return;
+  }
+
+   printf("\n====COMPLETED DELIVERIES====\n");
+   printf("%-5s %-15s %-15s %-10s %-10s\n", "No","Source","Destination","Vehicle","Charge(LKR)");
+   for(int i = 0; i < deliveryCount; i++){
+     printf("%-5d %-15s %-15s %-10s %-10.2f\n", i+1, cityNames[deliverySource[i]], cityNames[deliveryDestination[i]],
+            vehicleNames[deliveryVehicle[i]], deliveryFinalCharge[i]);
+   }
 }

@@ -14,14 +14,23 @@ void renameCity(char cityNames[][30],int cityCount);
 void removeCity(char cityNames[][30],int *cityCount);
 
 void inputDistance(int distance[][MAX_CITIES],int cityCount,char cityNames[][30]);
+
 void displayDistanceTable(int distance[][MAX_CITIES],int cityCount,char cityNames[][30]);
+
 void displayVehicles(char vehicleNames[][20],int capacities[],float rates[],float speeds[],float efficiencies[],int vehicleCount);
+
 void handleDelivery(int distance[][MAX_CITIES], char cityNames[][30], int cityCount,char vehicleNames[][20], int capacities[], float rates[],float speeds[],
                      float efficiencies[], int vehicleCount, int deliverySource[], int deliveryDestination[], int deliveryVehicle[],
                     float deliveryFinalCharge[], int *deliveryCount);
+
 float findShortestPath(int source, int dest, int n, int roads[MAX_CITIES][MAX_CITIES],char cityNames[][30]);
+
 void showDeliveries(int deliverySource[], int deliveryDestination[], int deliveryVehicle[], float deliveryFinalCharge[],int deliveryCount,
                     char cityNames[][30], char vehicleNames[][20]);
+
+void showReports(int deliveryCount, int deliverySource[], int deliveryDestination[],int deliveryVehicle[], int distance[][MAX_CITIES],
+                 float deliveryFinalCharge[], float speeds[], char cityNames[][30]);
+
 
 int main(){
 
@@ -81,7 +90,9 @@ int main(){
         case 9:showDeliveries(deliverySource, deliveryDestination, deliveryVehicle, deliveryFinalCharge,
                                deliveryCount, cityNames, vehicleNames);
           break;
-
+        case 10:showReports(deliveryCount, deliverySource, deliveryDestination,deliveryVehicle, distance, deliveryFinalCharge,
+                speeds, cityNames);
+          break;
        case 0: printf("Exiting...\n");
            break;
         default: printf("Invalid choice! Try again.\n");
@@ -377,3 +388,16 @@ int main(){
             vehicleNames[deliveryVehicle[i]], deliveryFinalCharge[i]);
    }
 }
+
+
+ void showReports(int deliveryCount, int deliverySource[], int deliveryDestination[], int deliveryVehicle[], int distance[][MAX_CITIES],
+                  float deliveryFinalCharge[], float speeds[], char cityNames[][30]) {
+
+
+    if (deliveryCount == 0) {
+        printf("No deliveries completed yet.\n");
+        return;
+    }
+                  }
+
+
